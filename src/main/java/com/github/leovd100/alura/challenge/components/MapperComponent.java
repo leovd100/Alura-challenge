@@ -9,7 +9,7 @@ public class MapperComponent {
     public static User mapperUserDTOtoUser(UserDTO dto){
         User user = new User();
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(user, dto);
+        modelMapper.map(dto, user);
         return user;
     }
 }
