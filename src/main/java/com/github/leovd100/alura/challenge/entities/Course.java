@@ -1,10 +1,14 @@
 package com.github.leovd100.alura.challenge.entities;
 
+import com.github.leovd100.alura.challenge.dto.CourseDTO;
 import com.github.leovd100.alura.challenge.enums.StatusCourse;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_course")
@@ -14,15 +18,22 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
+    @Column(unique = true)
     private String code;
     private String instructor;
     private String desciption;
     private StatusCourse status;
-    private LocalDate initialDate;
+    private LocalDate initialDate = LocalDate.now();
     private LocalDate desabilityDate;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<Role>();
+
     public Course(){}
-    public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate, LocalDate desabilityDate) {
+    public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -30,8 +41,12 @@ public class Course {
         this.desciption = desciption;
         this.status = status;
         this.initialDate = initialDate;
-        this.desabilityDate = desabilityDate;
     }
+
+    public Course(CourseDTO dto){
+        this(null, dto.getName(), dto.getCode(), dto.getInstructor(), dto.getDesciption(), dto.getStatus(), dto.getInitialDate());
+    }
+
 
     public Long getId() {
         return id;

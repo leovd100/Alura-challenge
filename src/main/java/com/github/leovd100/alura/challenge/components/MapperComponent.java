@@ -1,6 +1,9 @@
 package com.github.leovd100.alura.challenge.components;
 
+import com.github.leovd100.alura.challenge.dto.CourseDTO;
+import com.github.leovd100.alura.challenge.dto.CourseRegisterDTO;
 import com.github.leovd100.alura.challenge.dto.UserDTO;
+import com.github.leovd100.alura.challenge.entities.Course;
 import com.github.leovd100.alura.challenge.entities.User;
 import org.modelmapper.ModelMapper;
 
@@ -12,4 +15,9 @@ public class MapperComponent {
         modelMapper.map(dto, user);
         return user;
     }
+
+    public static CourseRegisterDTO mapperCoursetoCourseDTO(Course course){
+       return  new CourseRegisterDTO(course.getName(), course.getCode(), course.getCode(), course.getStatus(), "Curso cadastrado com sucesso!");
+    }
+
 }

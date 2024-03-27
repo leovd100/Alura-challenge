@@ -33,7 +33,7 @@ public class ControllerExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Validation Error");
-        err.setMessage("E-mail em formato incorreto");
+        err.setMessage(e.getLocalizedMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
