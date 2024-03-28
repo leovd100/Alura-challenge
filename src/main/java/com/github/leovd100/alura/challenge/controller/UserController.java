@@ -1,9 +1,9 @@
 package com.github.leovd100.alura.challenge.controller;
 
-import com.github.leovd100.alura.challenge.components.MapperComponent;
 import com.github.leovd100.alura.challenge.dto.UserDTO;
 import com.github.leovd100.alura.challenge.dto.UserRegiterDTO;
 import com.github.leovd100.alura.challenge.services.UserService;
+import com.github.leovd100.alura.challenge.services.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
