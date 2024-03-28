@@ -39,7 +39,7 @@ public class UserService {
     }
 
     private UserRegiterDTO userToRecord(User user){
-        return new UserRegiterDTO(user.getName(), user.getUserName(), user.getEmail(), "Usuário cadastrado com sucesso!");
+        return new UserRegiterDTO(user.getName(), user.getUserName(), user.getEmail(), "User registered successfully!");
     }
 
     private PasswordEncoder encoder(){

@@ -19,7 +19,7 @@ public class CourseService {
 
     public CourseRegisterDTO registerUser(CourseDTO dto) {
         if(!dto.check("^[a-zA-Z]+(?:-[a-zA-Z]+)*$")){
-            throw new RuntimeException("Código inválido");
+            throw new RuntimeException("Invalid Code");
         }
         Course course = repository.save(new Course(dto));
         return MapperComponent.mapperCoursetoCourseDTO(course);

@@ -23,9 +23,9 @@ public class RegisterCheck {
         User referenceUserName = repository.getReferenceByUserName(dto.getUserName());
         User referenceEmail = repository.getReferenceByEmail(dto.getEmail());
         if(!Objects.isNull(referenceUserName)){
-            throw new DatabaseException("Username register in database");
+            throw new DatabaseException("Username already registered in the database");
         }else if(!Objects.isNull(referenceEmail)){
-            throw new DatabaseException("Email register in database");
+            throw new DatabaseException("Email already registered in the database");
         }
     }
 }
