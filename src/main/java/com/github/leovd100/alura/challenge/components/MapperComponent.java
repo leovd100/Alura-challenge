@@ -13,6 +13,7 @@ public class MapperComponent {
         User user = new User();
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(dto, user);
+        dto.getRoles().forEach(user::addRole);
         return user;
     }
 

@@ -1,50 +1,52 @@
 package com.github.leovd100.alura.challenge.dto;
 
-import com.github.leovd100.alura.challenge.Exception.DatabaseException;
 import com.github.leovd100.alura.challenge.entities.Role;
 import com.github.leovd100.alura.challenge.enums.Roles;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
+import java.util.List;
 
 public class UserDTO {
     private String name;
     @Size(max = 20)
     private String userName;
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email inválido")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O email deve estar em um formato válido")
     private String email;
 
-    private Roles roles;
+    private String password;
+    private List<Role> roles;
     private LocalDate registerDate;
 
-    public UserDTO(){
+    public UserDTO() {
+        this.registerDate = LocalDate.now(); // Inicializa a data de registro com a data atual
     }
 
-    public UserDTO(String name, String userName, String email, Roles roles, LocalDate registerDate) {
+    public UserDTO(String name, String userName, String email, String password, List<Role> roles, LocalDate registerDate) {
         this.name = name;
         this.userName = userName;
         this.email = email;
+        this.password = password;
         this.roles = roles;
         this.registerDate = registerDate;
-
     }
 
-    public Roles getRoles() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Roles roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
 
     public String getName() {
         return name;
@@ -77,8 +79,4 @@ public class UserDTO {
     public void setRegisterDate(LocalDate registerDate) {
         this.registerDate = registerDate;
     }
-
-
-
-
 }

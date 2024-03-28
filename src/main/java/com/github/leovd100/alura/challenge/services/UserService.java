@@ -7,6 +7,8 @@ import com.github.leovd100.alura.challenge.dto.UserRegiterDTO;
 import com.github.leovd100.alura.challenge.entities.User;
 import com.github.leovd100.alura.challenge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +30,9 @@ public class UserService {
             registerCheck.check(dto);
             User user = MapperComponent.mapperUserDTOtoUser(dto);
             user.setRegisterDate(LocalDate.now());
+            user.setPassword(encoder().encode(user.getPassword()));
+
+
             user = userRepository.save(user);
             return userToRecord(user);
 
@@ -37,5 +42,7 @@ public class UserService {
         return new UserRegiterDTO(user.getName(), user.getUserName(), user.getEmail(), "Usuário cadastrado com sucesso!");
     }
 
-
+    private PasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
 }
