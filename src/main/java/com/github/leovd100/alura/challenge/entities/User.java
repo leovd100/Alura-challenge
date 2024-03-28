@@ -25,6 +25,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
+    @OneToOne(mappedBy = "user")
+    private Registration registration;
     private String password;
     private LocalDate registerDate;
 
@@ -35,13 +37,22 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public User(Long id, String name, String userName, String email, LocalDate registerDate, String password) {
+    public User(Long id, String name, String userName, String email, Registration registration, String password, LocalDate registerDate) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.email = email;
-        this.registerDate = registerDate;
+        this.registration = registration;
         this.password = password;
+        this.registerDate = registerDate;
+    }
+
+    public Registration getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
     }
 
     public Long getId() {

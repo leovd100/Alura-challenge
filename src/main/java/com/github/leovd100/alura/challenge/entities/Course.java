@@ -27,12 +27,28 @@ public class Course {
     private LocalDate initialDate = LocalDate.now();
     private LocalDate desabilityDate;
 
+    @OneToOne(mappedBy = "course")
+    private Registration registration;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<Role>();
 
     public Course(){}
+
+    public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate, LocalDate desabilityDate, Registration registration) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.instructor = instructor;
+        this.desciption = desciption;
+        this.status = status;
+        this.initialDate = initialDate;
+        this.desabilityDate = desabilityDate;
+        this.registration = registration;
+    }
+
     public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate) {
         this.id = id;
         this.name = name;
@@ -47,6 +63,13 @@ public class Course {
         this(null, dto.getName(), dto.getCode(), dto.getInstructor(), dto.getDesciption(), dto.getStatus(), dto.getInitialDate());
     }
 
+    public Registration getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
+    }
 
     public Long getId() {
         return id;
