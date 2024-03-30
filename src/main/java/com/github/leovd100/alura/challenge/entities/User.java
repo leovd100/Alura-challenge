@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -17,16 +18,14 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     @Column(unique = true)
     private String userName;
     @Column(unique = true)
     private String email;
 
-    @OneToOne(mappedBy = "user")
-    private Registration registration;
     private String password;
     private LocalDate registerDate;
 
@@ -37,29 +36,23 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public User(Long id, String name, String userName, String email, Registration registration, String password, LocalDate registerDate) {
+    public User(UUID id, String name, String userName, String email, String password, LocalDate registerDate) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.email = email;
-        this.registration = registration;
+
         this.password = password;
         this.registerDate = registerDate;
     }
 
-    public Registration getRegistration() {
-        return registration;
-    }
 
-    public void setRegistration(Registration registration) {
-        this.registration = registration;
-    }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

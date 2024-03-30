@@ -1,7 +1,7 @@
 package com.github.leovd100.alura.challenge.controller;
 
 import com.github.leovd100.alura.challenge.dto.CourseDTO;
-import com.github.leovd100.alura.challenge.dto.CourseRegisterDTO;
+import com.github.leovd100.alura.challenge.dto.response.CourseRegisterDTO;
 import com.github.leovd100.alura.challenge.services.CourseService;
 import com.github.leovd100.alura.challenge.services.impl.CourseServiceImpl;
 import jakarta.validation.Valid;

@@ -3,7 +3,7 @@ package com.github.leovd100.alura.challenge.services.impl;
 import com.github.leovd100.alura.challenge.components.MapperComponent;
 import com.github.leovd100.alura.challenge.components.RegisterCheck;
 import com.github.leovd100.alura.challenge.dto.UserDTO;
-import com.github.leovd100.alura.challenge.dto.UserRegiterDTO;
+import com.github.leovd100.alura.challenge.dto.response.UserRegiterDTO;
 import com.github.leovd100.alura.challenge.entities.User;
 import com.github.leovd100.alura.challenge.repository.UserRepository;
 import com.github.leovd100.alura.challenge.services.UserService;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserRegiterDTO userToRecord(User user){
-        return new UserRegiterDTO(user.getName(), user.getUserName(), user.getEmail(), "User registered successfully!");
+        return new UserRegiterDTO(user.getId().toString(),user.getName(), user.getUserName(), user.getEmail(), "User registered successfully!");
     }
 
     private PasswordEncoder encoder(){

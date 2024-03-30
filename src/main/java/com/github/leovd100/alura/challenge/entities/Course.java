@@ -3,20 +3,19 @@ package com.github.leovd100.alura.challenge.entities;
 import com.github.leovd100.alura.challenge.dto.CourseDTO;
 import com.github.leovd100.alura.challenge.enums.StatusCourse;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_course")
 public class Course {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
 
     @Column(unique = true)
@@ -27,9 +26,6 @@ public class Course {
     private LocalDate initialDate = LocalDate.now();
     private LocalDate desabilityDate;
 
-    @OneToOne(mappedBy = "course")
-    private Registration registration;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -37,21 +33,21 @@ public class Course {
 
     public Course(){}
 
-    public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate, LocalDate desabilityDate, Registration registration) {
-        this.id = id;
+    public Course(UUID id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate, LocalDate desabilityDate) {
         this.name = name;
+        this.id = id;
         this.code = code;
         this.instructor = instructor;
         this.desciption = desciption;
         this.status = status;
         this.initialDate = initialDate;
         this.desabilityDate = desabilityDate;
-        this.registration = registration;
+
     }
 
-    public Course(Long id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate) {
-        this.id = id;
+    public Course(UUID id, String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate) {
         this.name = name;
+        this.id = id;
         this.code = code;
         this.instructor = instructor;
         this.desciption = desciption;
@@ -63,19 +59,12 @@ public class Course {
         this(null, dto.getName(), dto.getCode(), dto.getInstructor(), dto.getDesciption(), dto.getStatus(), dto.getInitialDate());
     }
 
-    public Registration getRegistration() {
-        return registration;
-    }
 
-    public void setRegistration(Registration registration) {
-        this.registration = registration;
-    }
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

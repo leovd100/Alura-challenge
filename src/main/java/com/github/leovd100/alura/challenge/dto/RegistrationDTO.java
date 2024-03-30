@@ -1,29 +1,14 @@
-package com.github.leovd100.alura.challenge.entities;
-
-import jakarta.persistence.*;
+package com.github.leovd100.alura.challenge.dto;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
-@Table(name = "tb_registration")
-public class Registration {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(name = "user_id", unique = true)
+public class RegistrationDTO {
     private UUID userId;
-    @Column(name = "course_id", unique = true)
     private UUID courseId;
-    private LocalDate initialDate = LocalDate.now();
+    private LocalDate initialDate;
 
-    public Registration(){}
-
-
-    public Registration(UUID id, UUID userId, UUID courseId, LocalDate initialDate) {
-        this.id = id;
+    public RegistrationDTO(UUID userId, UUID courseId, LocalDate initialDate) {
         this.userId = userId;
         this.courseId = courseId;
         this.initialDate = initialDate;

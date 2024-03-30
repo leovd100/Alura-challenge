@@ -1,7 +1,8 @@
 package com.github.leovd100.alura.challenge.dto;
 
 import com.github.leovd100.alura.challenge.entities.Role;
-import com.github.leovd100.alura.challenge.enums.Roles;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -9,15 +10,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class UserDTO {
+    @NotBlank(message = "Name cannot be empty")
     private String name;
     @Size(max = 20)
+    @NotBlank(message = "Username cannot be empty")
     private String userName;
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O email deve estar em um formato válido")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
-
+    @NotBlank(message = "Password cannot be empty")
     private String password;
     private List<Role> roles;
-    private LocalDate registerDate;
+    private LocalDate registerDate = LocalDate.now();
 
     public UserDTO() {
         this.registerDate = LocalDate.now(); // Inicializa a data de registro com a data atual
