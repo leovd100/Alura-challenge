@@ -4,6 +4,7 @@ import com.github.leovd100.alura.challenge.components.MapperComponent;
 import com.github.leovd100.alura.challenge.components.RegisterCheck;
 import com.github.leovd100.alura.challenge.dto.UserDTO;
 import com.github.leovd100.alura.challenge.dto.response.UserRegiterDTO;
+import com.github.leovd100.alura.challenge.entities.Role;
 import com.github.leovd100.alura.challenge.entities.User;
 import com.github.leovd100.alura.challenge.repository.UserRepository;
 import com.github.leovd100.alura.challenge.services.UserService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,19 +23,23 @@ public class UserServiceImpl implements UserService {
 
     private final RegisterCheck registerCheck;
 
+    private final RolesService rolesService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RegisterCheck registerCheck) {
+    public UserServiceImpl(UserRepository userRepository, RegisterCheck registerCheck, RolesService rolesService) {
         this.userRepository = userRepository;
         this.registerCheck = registerCheck;
+        this.rolesService = rolesService;
     }
 
     public UserRegiterDTO registerUser(UserDTO dto){
             registerCheck.check(dto);
-            User user = MapperComponent.mapperUserDTOtoUser(dto);
+            List<Role> listRoles = rolesService.findRoles(dto.getRoles());
+            User user = MapperComponent.mapperUserDTOtoUser(dto,listRoles);
+
+
             user.setRegisterDate(LocalDate.now());
             user.setPassword(encoder().encode(user.getPassword()));
-
-
             user = userRepository.save(user);
             return userToRecord(user);
 

@@ -6,16 +6,19 @@ import com.github.leovd100.alura.challenge.dto.UserDTO;
 import com.github.leovd100.alura.challenge.dto.response.RegisterResponseDTO;
 import com.github.leovd100.alura.challenge.entities.Course;
 import com.github.leovd100.alura.challenge.entities.Registration;
+import com.github.leovd100.alura.challenge.entities.Role;
 import com.github.leovd100.alura.challenge.entities.User;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 public class MapperComponent {
 
-    public static User mapperUserDTOtoUser(UserDTO dto){
+    public static User mapperUserDTOtoUser(UserDTO dto, List<Role> listRoles){
         User user = new User();
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(dto, user);
-        dto.getRoles().forEach(user::addRole);
+        listRoles.forEach(user::addRole);
         return user;
     }
 

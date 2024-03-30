@@ -35,7 +35,7 @@ public class ControllerExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Validation Error");
-        err.setMessage(e.getLocalizedMessage());
+        err.setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
@@ -52,17 +52,7 @@ public class ControllerExceptionHandler {
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
-    @ExceptionHandler(UnexpectedTypeException.class)
-    public ResponseEntity<StandardError> inativeCourse(UnexpectedTypeException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        StandardError err = new StandardError();
-        err.setTimestamp(Instant.now());
-        err.setStatus(status.value());
-        err.setError(e.getMessage());
-        err.setMessage(e.getSuppressed().toString());
-        err.setPath(request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }
+
 
 
 }

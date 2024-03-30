@@ -2,7 +2,10 @@ package com.github.leovd100.alura.challenge.dto;
 
 import com.github.leovd100.alura.challenge.entities.Role;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -11,23 +14,29 @@ import java.util.List;
 
 public class UserDTO {
     @NotBlank(message = "Name cannot be empty")
+    @Schema(example = "Name")
     private String name;
     @Size(max = 20)
     @NotBlank(message = "Username cannot be empty")
+    @Schema(example = "User Name")
     private String userName;
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O email deve estar em um formato válido")
     @NotBlank(message = "Email cannot be empty")
+    @Schema(example = "email@youremail.com")
     private String email;
     @NotBlank(message = "Password cannot be empty")
+    @Schema(example = "password")
     private String password;
-    private List<Role> roles;
+    @Valid
+    @NotEmpty(message = "Roles list cannot be empty")
+    private List<RoleDTO> roles;
     private LocalDate registerDate = LocalDate.now();
 
     public UserDTO() {
         this.registerDate = LocalDate.now(); // Inicializa a data de registro com a data atual
     }
 
-    public UserDTO(String name, String userName, String email, String password, List<Role> roles, LocalDate registerDate) {
+    public UserDTO(String name, String userName, String email, String password, List<RoleDTO> roles, LocalDate registerDate) {
         this.name = name;
         this.userName = userName;
         this.email = email;
@@ -44,11 +53,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public List<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
     }
 
