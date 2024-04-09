@@ -26,14 +26,14 @@ public class MapperComponent {
        return  new CourseRegisterDTO(course.getId().toString(),course.getName(), course.getCode(), course.getCode(), course.getStatus(), "Curso cadastrado com sucesso!");
     }
 
-    public static Registration registrationMapper(RegistrationDTO dto){
-        Registration mapper = new Registration();
+    public static Registration mapperRegistrationDtotoRegistrionEntity(RegistrationDTO dto){
+        Registration registration = new Registration();
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(dto, mapper);
-        return  mapper;
+        modelMapper.map(dto, registration);
+        return  registration;
     }
 
-    public static RegisterResponseDTO registerToResponse(Registration registration, String message, String courseName){
+    public static RegisterResponseDTO mapperRegistrationToResponse(Registration registration, String message, String courseName){
         return new RegisterResponseDTO(registration.getUserId().toString(), message, courseName);
 
     }

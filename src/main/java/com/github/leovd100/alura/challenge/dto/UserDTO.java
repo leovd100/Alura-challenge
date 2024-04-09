@@ -20,7 +20,7 @@ public class UserDTO {
     @NotBlank(message = "Username cannot be empty")
     @Schema(example = "User Name")
     private String userName;
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "O email deve estar em um formato válido")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email cannot valid format")
     @NotBlank(message = "Email cannot be empty")
     @Schema(example = "email@youremail.com")
     private String email;
@@ -33,7 +33,7 @@ public class UserDTO {
     private LocalDate registerDate = LocalDate.now();
 
     public UserDTO() {
-        this.registerDate = LocalDate.now(); // Inicializa a data de registro com a data atual
+        this.registerDate = LocalDate.now();
     }
 
     public UserDTO(String name, String userName, String email, String password, List<RoleDTO> roles, LocalDate registerDate) {

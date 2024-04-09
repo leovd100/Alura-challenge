@@ -139,9 +139,10 @@ public class User implements UserDetails {
         return true;
     }
 
-    public boolean hasHole(String roleName) {
+    public boolean hasRole(String roleName) {
         for (Role role : roles) {
             if (role.getAuthority().equals(roleName)) {
+                System.out.println("Acessando a função: " + roleName);
                 return true;
             }
         }

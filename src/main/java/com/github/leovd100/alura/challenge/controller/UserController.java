@@ -4,6 +4,7 @@ import com.github.leovd100.alura.challenge.dto.UserDTO;
 import com.github.leovd100.alura.challenge.dto.response.UserRegiterDTO;
 import com.github.leovd100.alura.challenge.services.UserService;
 import com.github.leovd100.alura.challenge.services.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@SecurityRequirement(name = "basicAuth")
 public class UserController {
 
     private final UserService userService;

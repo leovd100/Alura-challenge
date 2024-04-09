@@ -18,6 +18,7 @@ public class CourseDTO {
     private StatusCourse status;
     private LocalDate initialDate;
 
+    public CourseDTO(){}
 
     public CourseDTO(String name, String code, String instructor, String desciption, StatusCourse status, LocalDate initialDate) {
         this.name = name;

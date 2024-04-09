@@ -10,6 +10,7 @@ import com.github.leovd100.alura.challenge.enums.StatusCourse;
 import com.github.leovd100.alura.challenge.repository.RegistrationRepository;
 import com.github.leovd100.alura.challenge.services.CourseService;
 import com.github.leovd100.alura.challenge.services.RegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,16 +19,17 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final RegistrationRepository repository;
     private final CourseService courseService;
 
+    @Autowired
     public RegistrationServiceImpl(RegistrationRepository repository, CourseService courseService) {
         this.repository = repository;
         this.courseService = courseService;
     }
 
     public RegisterResponseDTO register(RegistrationDTO dto){
-        Registration registrationMapper  = MapperComponent.registrationMapper(dto);
+        Registration registrationMapper  = MapperComponent.mapperRegistrationDtotoRegistrionEntity(dto);
         Course course =  courseService.findCourseById(dto.getCourseId());
         if(course.getStatus().equals(StatusCourse.ATIVO)) {
-           return MapperComponent.registerToResponse(repository.save(registrationMapper), "Successfully registered", course.getName());
+           return MapperComponent.mapperRegistrationToResponse(repository.save(registrationMapper), "Successfully registered", course.getName());
         }else {
             throw new CourseException("Error: Inative course ");
         }

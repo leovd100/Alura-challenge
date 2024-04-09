@@ -4,6 +4,7 @@ import com.github.leovd100.alura.challenge.Exception.RoleNotFOundException;
 import com.github.leovd100.alura.challenge.dto.RoleDTO;
 import com.github.leovd100.alura.challenge.entities.Role;
 import com.github.leovd100.alura.challenge.repository.RolesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class RolesService  {
     private final RolesRepository repository;
     private static final String MESSAGE_ROLE_NOT_FOUND = "Role not found";
 
+    @Autowired
     public RolesService(RolesRepository repository) {
         this.repository = repository;
     }

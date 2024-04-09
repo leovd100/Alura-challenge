@@ -1,5 +1,6 @@
 package com.github.leovd100.alura.challenge.services.impl;
 
+import com.github.leovd100.alura.challenge.Exception.CourseException;
 import com.github.leovd100.alura.challenge.components.MapperComponent;
 import com.github.leovd100.alura.challenge.dto.CourseDTO;
 import com.github.leovd100.alura.challenge.dto.response.CourseRegisterDTO;
@@ -27,8 +28,9 @@ public class CourseServiceImpl implements CourseService {
         return MapperComponent.mapperCoursetoCourseDTO(course);
     }
 
-    public Course findCourseById(UUID id){
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+    public Course findCourseById(UUID id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new CourseException("Course not found"));
     }
 
 }
